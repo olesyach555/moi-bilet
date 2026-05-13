@@ -71,6 +71,15 @@ BEGIN
 END;
 GO
 
+-- 3. ДОБАВЛЕНИЕ АДМИНИСТРАТОРА (admin / admin)
+-- ============================================================
+IF NOT EXISTS (SELECT 1 FROM dbo.Пользователи WHERE Логин = N'admin')
+BEGIN
+    INSERT INTO dbo.Пользователи (Логин, ПарольХэш, Почта)
+    VALUES (N'admin', N'8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', N'olesyachernovawwork@gmail.com');
+END
+GO
+
 -- 2.4 Получить пользователя по ИД
 CREATE OR ALTER PROCEDURE sp_ПолучитьПользователяПоИД
     @ИДентификатор INT

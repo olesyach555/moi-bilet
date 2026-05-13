@@ -13,7 +13,14 @@ namespace УниверсальноеПриложение
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Формы.ГлавнаяФорма());
+
+            using (var loginForm = new Формы.ФормаВхода())
+            {
+                if (loginForm.ShowDialog() == DialogResult.OK)
+                {
+                    Application.Run(new Формы.ГлавнаяФорма());
+                }
+            }
         }
     }
 }

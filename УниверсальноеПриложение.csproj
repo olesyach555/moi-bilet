@@ -43,11 +43,19 @@
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ДоступКДанным\ДоступКДанным.cs" />
+    <Compile Include="Сервисы\IEmailVerificationService.cs" />
+    <Compile Include="Сервисы\EmailVerificationService.cs" />
+    <Compile Include="Утилиты\МенеджерСессии.cs" />
+    <Compile Include="Формы\ФормаВхода.cs" />
+    <Compile Include="Формы\ФормаРегистрации.cs" />
+    <Compile Include="Формы\ФормаПрофиля.cs" />
     <Compile Include="Формы\ГлавнаяФорма.cs">
       <SubType>Form</SubType>
     </Compile>

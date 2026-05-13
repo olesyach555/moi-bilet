@@ -100,5 +100,78 @@ namespace УниверсальноеПриложение.ДоступКДанн�
                 }
             }
         }
+
+        // РАБОТА С ПОЛЬЗОВАТЕЛЯМИ
+
+        public int СоздатьПользователя(string логин, string парольХэш, string почта)
+        {
+            using (SqlConnection соединение = new SqlConnection(строкаПодключения))
+            {
+                соединение.Open();
+                using (SqlCommand команда = new SqlCommand("sp_СоздатьПользователя", соединение))
+                {
+                    команда.CommandType = CommandType.StoredProcedure;
+                    команда.Parameters.AddWithValue("@Логин", логин);
+                    команда.Parameters.AddWithValue("@ПарольХэш", парольХэш);
+                    команда.Parameters.AddWithValue("@Почта", почта);
+                    команда.Parameters.Add("@НовыйИД", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    команда.ExecuteNonQuery();
+                    return (int)команда.Parameters["@НовыйИД"].Value;
+                }
+            }
+        }
+
+        public DataTable ПолучитьПользователяПоЛогину(string логин)
+        {
+            DataTable таблица = new DataTable();
+            using (SqlConnection соединение = new SqlConnection(строкаПодключения))
+            {
+                соединение.Open();
+                using (SqlCommand команда = new SqlCommand("sp_ПолучитьПользователяПоЛогину", соединение))
+                {
+                    команда.CommandType = CommandType.StoredProcedure;
+                    команда.Parameters.AddWithValue("@Логин", логин);
+                    using (SqlDataAdapter адаптер = new SqlDataAdapter(команда))
+                    {
+                        адаптер.Fill(таблица);
+                    }
+                }
+            }
+            return таблица;
+        }
+
+        public void ОбновитьПароль(int id, string новыйПарольХэш)
+        {
+            using (SqlConnection соединение = new SqlConnection(строкаПодключения))
+            {
+                соединение.Open();
+                using (SqlCommand команда = new SqlCommand("sp_ОбновитьПароль", соединение))
+                {
+                    команда.CommandType = CommandType.StoredProcedure;
+                    команда.Parameters.AddWithValue("@ИДентификатор", id);
+                    команда.Parameters.AddWithValue("@НовыйПарольХэш", новыйПарольХэш);
+                    команда.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public DataTable ПолучитьПользователяПоИД(int id)
+        {
+            DataTable таблица = new DataTable();
+            using (SqlConnection соединение = new SqlConnection(строкаПодключения))
+            {
+                соединение.Open();
+                using (SqlCommand команда = new SqlCommand("sp_ПолучитьПользователяПоИД", соединение))
+                {
+                    команда.CommandType = CommandType.StoredProcedure;
+                    команда.Parameters.AddWithValue("@ИДентификатор", id);
+                    using (SqlDataAdapter адаптер = new SqlDataAdapter(команда))
+                    {
+                        адаптер.Fill(таблица);
+                    }
+                }
+            }
+            return таблица;
+        }
     }
 }

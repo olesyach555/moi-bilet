@@ -72,5 +72,13 @@ namespace УниверсальноеПриложение.Формы
                 }
             }
         }
+
+        private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (ФормаПрофиля форма = new ФормаПрофиля())
+            {
+                форма.ShowDialog();
+            }
+        }
     }
 }
